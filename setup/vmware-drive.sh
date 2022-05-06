@@ -11,3 +11,5 @@ else
 logger VMware drive not mounted
 fi
 EOT
+
+(crontab -l 2>/dev/null; echo "@reboot /opt/vmware-drive.service") | crontab -
