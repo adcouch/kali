@@ -7,7 +7,7 @@ logger "Post_Deployment_Script: Time zone set"
 
 # updates and upgrades
 apt update && apt-get upgrade -y
-apt dist-upgrade
+apt dist-upgrade -y
 logger "Post_Deployment_Script: apt update complete"
 
 apt update && apt -y install curl gnupg apt-transport-https
