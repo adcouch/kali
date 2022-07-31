@@ -81,11 +81,14 @@ make
 make install
 "Post_Deployment_Script: freeimpi added and setup"
 
+su kali
 cd /home/kali
+cat <<EOF >> .zshrc
+export HISTFILESIZE=
+export HISTSIZE=
+echo export HISTTIMEFORMAT=\"[%F %T]\"
+echo export HISTFILE=\~/.zsh_supersize_history
+echo PROMPT_COMMAND=\"history -a; $PROMPT_COMMAND\"
+EOF
 
-echo export HISTFILESIZE= >> .zshrc
-echo export HISTSIZE= >> .zshrc
-echo export HISTTIMEFORMAT=\"[%F %T]\" >> .zshrc
-echo export HISTFILE=\~/.zsh_supersize_history >> .zshrc
-echo PROMPT_COMMAND=\"history -a; $PROMPT_COMMAND\" >> .zshrc
 "Post_Deployment_Script: custom history added to rc file"
