@@ -62,14 +62,14 @@ cp privilege-escalation-awesome-scripts-suite/winPEAS/winPEASbat/winPEAS.bat web
 cp privilege-escalation-awesome-scripts-suite/linPEAS/linpeas.sh webshare/
 cp PowerSploit/Recon/PowerView.ps1 webshare/
 cp PowerSploit/Exfiltration/Invoke-Mimikatz.ps1 webshare/
-"Post_Deployment_Script: webshare created"
+logger "Post_Deployment_Script: webshare created"
 
 cd /opt
 
 wget https://labs.portcullis.co.uk/download/rdp-sec-check-0.9.tgz --no-check-certificate
 tar xvfz rdp-sec-check-0.9.tgz
 rm -f rdp-sec-check-0.9.tgz
-"Post_Deployment_Script: rdp-sec-check added"
+logger "Post_Deployment_Script: rdp-sec-check added"
 
 wget http://ftp.gnu.org/gnu/freeipmi/freeipmi-1.1.6.tar.gz
 tar -zxvf freeipmi-1.1.6.tar.gz
@@ -77,7 +77,7 @@ cd freeipmi-1.1.6/
 ./configure
 make
 make install
-"Post_Deployment_Script: freeimpi added and setup"
+logger "Post_Deployment_Script: freeimpi added and setup"
 
 su kali
 cd /home/kali
@@ -89,4 +89,23 @@ export HISTFILE=\~/.zsh_supersize_history
 PROMPT_COMMAND=\"history -a; $PROMPT_COMMAND\"
 EOF
 
-"Post_Deployment_Script: custom history added to rc file"
+logger "Post_Deployment_Script: custom history added to rc file"
+
+# Covenant install
+wget -q https://packages.microsoft.com/config/ubuntu/19.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt -y update
+sudo apt -y install apt-transport-https
+sudo apt -y update
+sudo apt -y install dotnet-sdk-3.1 dnsutils
+rm packages-microsoft-prod.deb
+
+sudo git clone --recurse-submodules https://github.com/ZeroPointSecurity/Covenant.git /opt/Covenant
+sudo git clone https://github.com/rbsec/dnscan.git /opt/dnscan
+sudo git clone https://github.com/chinarulezzz/spoofcheck /opt/spoofcheck; cd /opt/spoofcheck; sudo pip3 install -r requirements.txt
+sudo git clone https://gist.github.com/superkojiman/11076951 /opt/namemash; sudo chmod +x /opt/namemash/namemash.py
+sudo git clone https://github.com/byt3bl33d3r/SprayingToolkit.git /opt/SprayingToolkit; cd /opt/SprayingToolkit; sudo pip3 install -r requirements.txt
+sudo git clone https://github.com/FortyNorthSecurity/Egress-Assess.git /opt/Egress-Assess
+sudo gem install evil-winrm
+
+logger "Post_Deployment_Script: Covenant Install"
