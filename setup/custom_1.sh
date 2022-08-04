@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#for kali 2019.4 using xfce the time zone can be changed like so:
-
 timedatectl set-timezone Europe/London
 logger "Post_Deployment_Script: Time zone set"
 
