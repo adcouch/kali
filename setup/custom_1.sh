@@ -86,9 +86,9 @@ cd /home/kali
 cat <<EOF >> .zshrc
 export HISTFILESIZE=
 export HISTSIZE=
-echo export HISTTIMEFORMAT=\"[%F %T]\"
-echo export HISTFILE=\~/.zsh_supersize_history
-echo PROMPT_COMMAND=\"history -a; $PROMPT_COMMAND\"
+export HISTTIMEFORMAT=\"[%F %T]\"
+export HISTFILE=\~/.zsh_supersize_history
+PROMPT_COMMAND=\"history -a; $PROMPT_COMMAND\"
 EOF
 
 "Post_Deployment_Script: custom history added to rc file"
