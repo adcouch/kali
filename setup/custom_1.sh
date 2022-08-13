@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# setup vmware drive
+mkdir /mnt/hgfs
+cat <<EOF >> /etc/fstab
+vmhgfs-fuse     /mnt/hgfs       fuse    defaults,allow_other    0       0
+EOF
+logger "Post_Deployment_Script: vmware dirve ready"
+
 timedatectl set-timezone Europe/London
 logger "Post_Deployment_Script: Time zone set"
 
