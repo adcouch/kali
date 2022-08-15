@@ -42,6 +42,8 @@ git clone https://github.com/leapsecurity/InSpy.git
 git clone --depth 1 https://github.com/drwetter/testssl.sh.git
 git clone https://github.com/PowerShellMafia/PowerSploit.git
 
+git cline https://github.com/danielmiessler/SecLists.git
+logger "Post_Deployment_Script: adding seclists"
 
 pip install ldapdomaindump ldap3 dnspython
 logger "Post_Deployment_Script: additional python packages installed"
