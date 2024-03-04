@@ -51,7 +51,7 @@ download_binary() {
 }
 
 clone_repositories() {
-  local repos=(https://github.com/byt3bl33d3r/SprayingToolkit https://github.com/m8r0wn/nullinux https://github.com/danielbohannon/Invoke-Obfuscation https://github.com/leapsecurity/InSpy https://github.com/drwetter/testssl.sh.git https://github.com/PowerShellMafia/PowerSploit https://github.com/danielmiessler/SecLists.git https://github.com/Veil-Framework/Veil-Catapult.git https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git https://github.com/rebootuser/LinEnum.git)
+  local repos=(https://github.com/byt3bl33d3r/SprayingToolkit https://github.com/m8r0wn/nullinux https://github.com/danielbohannon/Invoke-Obfuscation https://github.com/leapsecurity/InSpy https://github.com/dirkjanm/mitm6.git https://github.com/drwetter/testssl.sh.git https://github.com/PowerShellMafia/PowerSploit https://github.com/danielmiessler/SecLists.git https://github.com/Veil-Framework/Veil-Catapult.git https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git https://github.com/rebootuser/LinEnum.git)
   for repo in "${repos[@]}"; do
     git clone "$repo" /opt
   done
