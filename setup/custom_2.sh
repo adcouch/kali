@@ -59,7 +59,7 @@ clone_repositories() {
 }
 
 install_python_packages() {
-  pip install ldapdomaindump ldap3 dnspython
+  pip install ldapdomaindump ldap3 dnspython coercer certipy-ad
   logger "Post_Deployment_Script: Additional Python packages installed"
 }
 
