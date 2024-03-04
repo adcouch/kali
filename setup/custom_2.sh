@@ -33,6 +33,8 @@ download_nessus() {
   curl --request GET --url "$url" --output '/opt/Nessus-10.7.1-ubuntu1404_amd64.deb'
   chmod +x '/opt/Nessus-10.7.1-ubuntu1404_amd64.deb'
   dpkg -i '/opt/Nessus-10.7.1-ubuntu1404_amd64.deb'
+  systemctl enable nessusd.service
+  systemctl start nessusd.service
 }
 
 download_binary() {
