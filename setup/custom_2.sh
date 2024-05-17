@@ -21,7 +21,7 @@ system_updates() {
 }
 
 install_packages() {
-  local packages=(sipcalc veil rstat-client cifs-utils oscanner rusers filezilla ipmitool freeipmi htop iftop wondershaper libssl-dev libffi-dev python-dev build-essential nfs-common veil rsh-client python3-pip python-pip)
+  local packages=(sipcalc veil rstat-client cifs-utils oscanner rusers filezilla ipmitool freeipmi htop iftop wondershaper libssl-dev libffi-dev python-dev build-essential nfs-common veil rsh-client python3-pip python-pip dnsmasq)
   for package in "${packages[@]}"; do
     apt-get install -y "$package"
   done
@@ -59,7 +59,7 @@ clone_repositories() {
 }
 
 install_python_packages() {
-  pip install ldapdomaindump ldap3 dnspython coercer certipy-ad
+  pip install ldapdomaindump ldap3 dnspython coercer certipy-ad updog
   logger "Post_Deployment_Script: Additional Python packages installed"
 }
 
