@@ -21,7 +21,7 @@ system_updates() {
 }
 
 install_packages() {
-  local packages=(sipcalc veil rstat-client cifs-utils oscanner rusers filezilla ipmitool freeipmi htop iftop wondershaper libssl-dev libffi-dev python-dev build-essential nfs-common veil rsh-client python3-pip python-pip dnsmasq)
+  local packages=(sipcalc veil rstat-client cifs-utils oscanner rusers filezilla ipmitool freeipmi htop iftop wondershaper libssl-dev libffi-dev python-dev build-essential nfs-common veil rsh-client python3-pip python-pip dnsmasq bloodhound bloodhound.py)
   for package in "${packages[@]}"; do
     apt-get install -y "$package"
   done
@@ -51,10 +51,11 @@ download_binary() {
 }
 
 clone_repositories() {
-  local repos=(https://github.com/byt3bl33d3r/SprayingToolkit https://github.com/m8r0wn/nullinux https://github.com/danielbohannon/Invoke-Obfuscation https://github.com/leapsecurity/InSpy https://github.com/dirkjanm/mitm6.git https://github.com/drwetter/testssl.sh.git https://github.com/PowerShellMafia/PowerSploit https://github.com/danielmiessler/SecLists.git https://github.com/Veil-Framework/Veil-Catapult.git https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git https://github.com/rebootuser/LinEnum.git)
+  local repos=(https://github.com/byt3bl33d3r/SprayingToolkit https://github.com/m8r0wn/nullinux https://github.com/danielbohannon/Invoke-Obfuscation https://github.com/leapsecurity/InSpy https://github.com/dirkjanm/mitm6.git https://github.com/drwetter/testssl.sh.git https://github.com/PowerShellMafia/PowerSploit https://github.com/danielmiessler/SecLists.git https://github.com/Veil-Framework/Veil-Catapult.git https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite.git https://github.com/rebootuser/LinEnum.git https://github.com/dirkjanm/mitm6.git)
   for repo in "${repos[@]}"; do
     git clone "$repo" /opt
   done
+  (cd /opt/mitm6 && pip install -r requirements.txt)
   logger "Post_Deployment_Script: Repositories cloned"
 }
 
@@ -77,7 +78,7 @@ download_tools() {
   wget https://labs.portcullis.co.uk/download/rdp-sec-check-0.9.tgz --no-check-certificate -O /opt/rdp-sec-check-0.9.tgz
   tar xvfz /opt/rdp-sec-check-0.9.tgz -C /opt/
   rm -f /opt/rdp-sec-check-0.9.tgz
-
+  
   wget http://ftp.gnu.org/gnu/freeipmi/freeipmi-1.1.6.tar.gz -O /opt/freeipmi-1.1.6.tar.gz
   tar -zxvf /opt/freeipmi-1.1.6.tar.gz -C /opt/
   (cd /opt/freeipmi-1.1.6/ && ./configure && make && make install)
