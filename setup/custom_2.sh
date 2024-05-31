@@ -113,6 +113,42 @@ install_covenant() {
   logger "Post_Deployment_Script: Covenant and additional tools installed"
 }
 
+network_config() {
+  UDEV_RULE1='SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:0c:29:*", NAME="NAT@eth1"'
+  UDEV_RULE2='SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="8c:ae:4c:*", NAME="USB@eth1"'
+
+  # Define the udev rules file
+  UDEV_FILE="/etc/udev/rules.d/10-custom-network-names.rules"
+
+  # Function to add a rule if it does not exist
+  add_rule() {
+      local rule="$1"
+      local file="$2"
+      
+      if ! grep -Fxq "$rule" "$file"; then
+          logger "Adding udev rule to $file"
+          echo "$rule" >> "$file"
+      else
+          logger "Udev rule already exists in $file"
+      fi
+  }
+
+  # Check if the udev file exists
+  if [ ! -f "$UDEV_FILE" ]; then
+      touch "$UDEV_FILE"
+  fi
+
+  # Add the udev rules
+  add_rule "$UDEV_RULE1" "$UDEV_FILE"
+  add_rule "$UDEV_RULE2" "$UDEV_FILE"
+
+  # Reload the udev rules
+  udevadm control --reload-rules
+  udevadm trigger
+
+logger "Udev rules updated successfully"
+}
+
 main() {
   setup_vmware_drive
   set_timezone
@@ -126,6 +162,7 @@ main() {
   download_tools
   customize_zsh_history
   install_covenant
+  network_config
 }
 
 # Execute main function
