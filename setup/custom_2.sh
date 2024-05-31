@@ -114,7 +114,7 @@ install_covenant() {
 }
 
 network_config() {
-  UDEV_RULE1='SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:0c:29:*", NAME="NAT@eth1"'
+  UDEV_RULE1='SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="00:0c:29:*", NAME="NAT@eth0"'
   UDEV_RULE2='SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="8c:ae:4c:*", NAME="USB@eth1"'
 
   # Define the udev rules file
