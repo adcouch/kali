@@ -90,22 +90,31 @@ download_tools() {
 }
 
 customize_zsh_history() {
-  grep -q 'export HISTFILE="$HOME/.zsh_supersize_history"' /home/kali/.zshrc || cat << 'EOF' >> /home/kali/.zshrc
+  # Check if Zsh history config is already in .zshrc
+  grep -q 'setopt EXTENDED_HISTORY' /home/kali/.zshrc || cat << 'EOF' >> /home/kali/.zshrc
 
-# Custom Zsh history settings
+# Custom Zsh history settings with timestamps
 export HISTFILE="$HOME/.zsh_supersize_history"
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 export HIST_STAMPS="yyyy-mm-dd HH:MM:SS"
 
-# Ensure Zsh reads from history file
-[[ -f "$HISTFILE" ]] && fc -R "$HISTFILE"
+# Ensure timestamps are recorded in history file
+setopt EXTENDED_HISTORY    # Stores timestamps in HISTFILE
 
-# Force append to history file before each prompt
+# Ensure history loads and appends correctly
+[[ -f "$HISTFILE" ]] && fc -R "$HISTFILE"
 precmd() { fc -AI; }
+
+# Alias to display timestamps in history
+alias history="fc -il 1"
 
 EOF
 
+  # Ensure correct ownership of .zshrc (if script runs as root)
+  chown kali:kali /home/kali/.zshrc
+
+  # Log the change for debugging
   logger "Post_Deployment_Script: Custom history added to .zshrc"
 }
 
