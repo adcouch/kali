@@ -16,7 +16,10 @@ set_timezone() {
 }
 
 system_updates() {
-  apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get update
+  apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
+  apt-get dist-upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"
   logger "Post_Deployment_Script: System updates complete"
 }
 
