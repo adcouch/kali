@@ -1,4 +1,4 @@
-# Kali Post Desployment Script
+# Kali Post Deployment Script
 
 ```bash
 # sudo su
